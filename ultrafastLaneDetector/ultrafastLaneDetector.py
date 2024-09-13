@@ -49,12 +49,16 @@ class ModelConfig():
 
 class UltrafastLaneDetector():
 
-	def __init__(self, model_path, model_type=ModelType.TUSIMPLE, use_gpu=False):
+	def __init__(self, model_path, model_type=ModelType.TUSIMPLE, use_gpu=False, img_size=None):
 
 		self.use_gpu = use_gpu
 
 		# Load model configuration based on the model type
 		self.cfg = ModelConfig(model_type)
+
+		if img_size is not None:
+			self.cfg.img_w = img_size[0]
+			self.cfg.img_h = img_size[1]
 
 		# Initialize model
 		self.model = self.initialize_model(model_path, self.cfg, use_gpu)
